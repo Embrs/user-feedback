@@ -369,8 +369,11 @@ export class WebServer {
     // 預設罐頭語
     return [
       { text: '無', value: '無' },
-      { text: '收到', value: '收到' },
-      { text: '繼續', value: '繼續' }
+      { text: '依你推薦的方式處理', value: '依你推薦的方式處理' },
+      { text: '使用 openspec proposal 提案', value: '使用 openspec proposal 提案' },
+      { text: '使用 openspec apply 執行提案', value: '使用 openspec apply 執行提案' },
+      { text: '使用 openspec archive 歸檔', value: '使用 openspec archive 歸檔' },
+      { text: '全部歸檔', value: '全部歸檔' }
     ];
   }
 
