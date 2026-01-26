@@ -2,7 +2,11 @@
  * MCP Feedback Collector - 主入口
  */
 
-export const VERSION = '1.1.1';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
+
+export const VERSION: string = pkg.version;
 
 export { MCPServer } from './server/mcp-server.js';
 export { WebServer } from './server/web-server.js';

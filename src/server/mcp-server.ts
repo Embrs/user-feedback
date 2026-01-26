@@ -9,6 +9,10 @@ import { z } from 'zod';
 import { Config, CollectFeedbackParams, MCPError, FeedbackData, ImageData } from '../types/index.js';
 import { logger } from '../utils/logger.js';
 import { WebServer } from './web-server.js';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const pkg = require('../../package.json');
 
 /**
  * MCP 服務器類
@@ -25,7 +29,7 @@ export class MCPServer {
     // 創建 MCP 服務器實例
     this.mcpServer = new McpServer({
       name: 'user-feedback',
-      version: '1.1.1'
+      version: pkg.version
     }, {
       capabilities: {
         tools: {},
