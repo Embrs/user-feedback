@@ -17,11 +17,24 @@
 
 ## 安裝
 
-### 從原始碼安裝（本地開發）
+### 從 npm 安裝（推薦）
+
+```bash
+# 全域安裝
+npm install -g @embrs/user-feedback
+
+# 更新到最新版本
+npm update -g @embrs/user-feedback
+
+# 或使用 npx 直接執行（無需安裝，自動使用最新版）
+npx @embrs/user-feedback@latest --help
+```
+
+### 從原始碼安裝（開發用）
 
 ```bash
 # 克隆專案
-git clone <repository-url>
+git clone https://github.com/Embrs/user-feedback.git
 cd user-feedback
 
 # 安裝依賴並建置
@@ -30,28 +43,17 @@ npm run build
 
 # 建立全域連結（本地測試用）
 npm link
-
-# 現在可以在任何地方使用 user-feedback 命令
-user-feedback --help
-```
-
-### 從 npm 安裝（發布後）
-
-```bash
-npm install -g user-feedback
 ```
 
 ## 解除安裝
 
 ```bash
 # 如果使用 npm 全域安裝
-npm uninstall -g user-feedback
+npm uninstall -g @embrs/user-feedback
 
-# 如果從原始碼安裝，直接刪除專案目錄
+# 如果從原始碼安裝，先移除連結再刪除專案
+npm unlink -g @embrs/user-feedback
 rm -rf user-feedback
-
-# 清理 npm 快取（可選）
-npm cache clean --force
 ```
 
 **注意**：解除安裝後，請記得從 MCP 客戶端配置中移除相關設定（如 Claude Desktop 的 `claude_desktop_config.json`）。
@@ -108,12 +110,13 @@ user-feedback config
 }
 ```
 
-**方法二：使用 npm link 後**
+**方法二：使用 npm 全域安裝後**
 ```json
 {
   "mcpServers": {
     "user-feedback": {
-      "command": "user-feedback"
+      "command": "npx",
+      "args": ["-y", "@embrs/user-feedback"]
     }
   }
 }

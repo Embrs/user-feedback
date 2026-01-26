@@ -1,10 +1,18 @@
 {
-  "name": "user-feedback",
-  "version": "3.0.0",
+  "name": "@embrs/user-feedback",
+  "version": "1.0.0",
   "description": "基於 Node.js 的 MCP 反饋收集器 - 支援 AI 工作彙報和用戶反饋收集",
   "main": "dist/index.js",
   "bin": {
     "user-feedback": "dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Embrs/user-feedback.git"
+  },
+  "homepage": "https://github.com/Embrs/user-feedback#readme",
+  "bugs": {
+    "url": "https://github.com/Embrs/user-feedback/issues"
   },
   "type": "module",
   "engines": {
@@ -20,7 +28,7 @@
     "claude",
     "anthropic"
   ],
-  "author": "MCP Feedback Collector Team",
+  "author": "Embrs",
   "license": "MIT",
   "scripts": {
     "build": "tsc && npm run copy-static",
