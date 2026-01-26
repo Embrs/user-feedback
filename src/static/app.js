@@ -256,8 +256,9 @@ function initQuickReplies() {
   elements.quickReplies.addEventListener('click', (e) => {
     if (e.target.classList.contains('quick-reply-btn')) {
       const text = e.target.dataset.text;
-      // 直接提交並關閉
-      submitQuickReply(text);
+      // 將文字帶入輸入框，不直接提交
+      elements.feedbackText.value = text;
+      elements.feedbackText.focus();
     }
   });
 

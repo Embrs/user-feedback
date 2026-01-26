@@ -17,8 +17,6 @@
 
 ## 安裝
 
-### 從 npm 安裝（推薦）
-
 ```bash
 # 全域安裝
 npm install -g @embrs/user-feedback
@@ -30,33 +28,13 @@ npm update -g @embrs/user-feedback
 npx @embrs/user-feedback@latest --help
 ```
 
-### 從原始碼安裝（開發用）
-
-```bash
-# 克隆專案
-git clone https://github.com/Embrs/user-feedback.git
-cd user-feedback
-
-# 安裝依賴並建置
-npm install
-npm run build
-
-# 建立全域連結（本地測試用）
-npm link
-```
-
 ## 解除安裝
 
 ```bash
-# 如果使用 npm 全域安裝
 npm uninstall -g @embrs/user-feedback
-
-# 如果從原始碼安裝，先移除連結再刪除專案
-npm unlink -g @embrs/user-feedback
-rm -rf user-feedback
 ```
 
-**注意**：解除安裝後，請記得從 MCP 客戶端配置中移除相關設定（如 Claude Desktop 的 `claude_desktop_config.json`）。
+**注意**：解除安裝後，請記得從 MCP 客戶端配置中移除相關設定。
 
 ## 使用方式
 
@@ -98,19 +76,6 @@ user-feedback config
 3. 點擊 "Edit in settings.json" 或 "Add Server"
 4. 添加以下配置：
 
-**方法一：使用絕對路徑（推薦本地開發）**
-```json
-{
-  "mcpServers": {
-    "user-feedback": {
-      "command": "node",
-      "args": ["/Users/embrs/Desktop/Program/self/user-feedback/dist/cli.js"]
-    }
-  }
-}
-```
-
-**方法二：使用 npm 全域安裝後**
 ```json
 {
   "mcpServers": {
@@ -132,8 +97,8 @@ user-feedback config
 {
   "mcpServers": {
     "user-feedback": {
-      "command": "node",
-      "args": ["/Users/embrs/Desktop/Program/self/user-feedback/dist/cli.js"]
+      "command": "npx",
+      "args": ["-y", "@embrs/user-feedback"]
     }
   }
 }
@@ -147,8 +112,8 @@ user-feedback config
 {
   "mcpServers": {
     "user-feedback": {
-      "command": "node",
-      "args": ["/Users/embrs/Desktop/Program/self/user-feedback/dist/cli.js"]
+      "command": "npx",
+      "args": ["-y", "@embrs/user-feedback"]
     }
   }
 }
@@ -187,40 +152,7 @@ AI 調用 collect_feedback 工具，傳入工作彙報內容
 
 ## 開發
 
-```bash
-# 安裝依賴
-npm install
-
-# 開發模式（監聽變更）
-npm run dev
-
-# 建置
-npm run build
-
-# 執行測試
-npm test
-
-# 程式碼檢查
-npm run lint
-```
-
-## 專案結構
-
-```
-src/
-├── cli.ts              # CLI 入口
-├── index.ts            # 模組導出
-├── config/             # 配置管理
-├── server/
-│   ├── mcp-server.ts   # MCP 服務器
-│   └── web-server.ts   # Web 服務器
-├── static/             # 前端資源
-│   ├── index.html      # 主頁面
-│   ├── styles.css      # 樣式
-│   └── app.js          # 前端邏輯
-├── types/              # TypeScript 類型
-└── utils/              # 工具函數
-```
+詳見 [DEV.md](DEV.md)。
 
 ## 授權
 
