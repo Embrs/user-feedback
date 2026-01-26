@@ -2,7 +2,7 @@
  * MCP Feedback Collector - 主入口
  */
 
-export const VERSION = '3.0.0';
+export const VERSION = '1.1.1';
 
 export { MCPServer } from './server/mcp-server.js';
 export { WebServer } from './server/web-server.js';
