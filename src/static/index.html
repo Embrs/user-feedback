@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Feedback Collector</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 左側：AI 工作彙報 -->
+    <div class="panel panel-left">
+      <div class="panel-header">
+        <h2>AI 工作彙報</h2>
+      </div>
+      <div class="panel-content" id="work-summary">
+        <div class="loading">等待 AI 工作彙報...</div>
+      </div>
+    </div>
+
+    <!-- 右側：用戶反饋 -->
+    <div class="panel panel-right">
+      <div class="panel-header">
+        <h2>用戶反饋</h2>
+      </div>
+      <div class="panel-content">
+        <!-- 圖片上傳區域 -->
+        <div class="image-section">
+          <div class="drop-zone" id="drop-zone">
+            <p>拖放圖片到此處或點擊上傳</p>
+            <input type="file" id="file-input" accept="image/*" multiple hidden>
+          </div>
+          <div class="image-preview" id="image-preview"></div>
+        </div>
+
+        <!-- 文字輸入區域 -->
+        <div class="text-section">
+          <textarea 
+            id="feedback-text" 
+            placeholder="輸入您的反饋..."
+            rows="6"
+          ></textarea>
+        </div>
+
+        <!-- 罐頭語按鈕 -->
+        <div class="quick-replies" id="quick-replies">
+          <button class="quick-reply-btn" data-text="">無</button>
+          <button class="quick-reply-btn" data-text="請繼續">請繼續</button>
+          <button class="quick-reply-btn" data-text="請使用你覺得的最佳解">請使用你覺得的最佳解</button>
+          <button class="add-reply-btn" id="add-reply-btn" title="新增罐頭語">+</button>
+        </div>
+
+        <!-- 提交按鈕 -->
+        <div class="submit-section">
+          <button id="submit-btn" class="submit-btn">提交反饋</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 圖片彈窗 -->
+  <div class="modal" id="image-modal">
+    <div class="modal-content">
+      <span class="modal-close" id="modal-close">&times;</span>
+      <img id="modal-image" src="" alt="Preview">
+    </div>
+  </div>
+
+  <!-- 狀態提示 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
