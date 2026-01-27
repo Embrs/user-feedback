@@ -15,6 +15,9 @@
 - **[新增]** `.memory/context/BUSINESS_OVERVIEW.md` - 創建專案業務概覽文件
 - **[更新]** `items/modules.md` - 完善 MCP 反饋收集器功能模組清單
 - **[格式]** `items/architecture.md` - 調整目錄結構格式對齊
+- **[修改]** `src/config/index.ts` - 調整預設超時時間從 600 秒改為 60000 秒
+- **[修改]** `.env.example` + `.env` - 更新環境變數預設值與驗證範圍
+- **[更新]** `README.md` - 完善環境變數文檔與 MCP 配置範例
 
 ### 2026-01-23
 - **[重構]** `SKILL.md` - 改為通用模板，移除專案特定內容

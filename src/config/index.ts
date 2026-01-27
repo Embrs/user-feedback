@@ -57,7 +57,7 @@ export function createDefaultConfig(): Config {
     apiBaseUrl: getEnvVar('MCP_API_BASE_URL', 'https://api.openai.com/v1'),
     defaultModel: getEnvVar('MCP_DEFAULT_MODEL', 'gpt-4o-mini'),
     webPort: getEnvNumber('MCP_WEB_PORT', 3239),
-    dialogTimeout: getEnvNumber('MCP_DIALOG_TIMEOUT', 600),
+    dialogTimeout: getEnvNumber('MCP_DIALOG_TIMEOUT', 60000),
     corsOrigin: getEnvVar('MCP_CORS_ORIGIN', '*'),
     maxFileSize: getEnvNumber('MCP_MAX_FILE_SIZE', 10485760), // 10MB
     logLevel: getEnvVar('LOG_LEVEL', 'info'),
@@ -82,10 +82,10 @@ export function validateConfig(config: Config): void {
     );
   }
 
-  // 驗證超時時間（10 秒到 1 小時）
-  if (config.dialogTimeout < 10 || config.dialogTimeout > 3600) {
+  // 驗證超時時間（10 秒到 60000 秒）
+  if (config.dialogTimeout < 10 || config.dialogTimeout > 60000) {
     throw new MCPError(
-      `Invalid timeout: ${config.dialogTimeout}. Must be between 10 and 3600 seconds.`,
+      `Invalid timeout: ${config.dialogTimeout}. Must be between 10 and 60000 seconds.`,
       'INVALID_TIMEOUT'
     );
   }

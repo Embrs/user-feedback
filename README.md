@@ -1,5 +1,7 @@
 # User Feedback
 
+[![npm version](https://badge.fury.io/js/%40embrs%2Fuser-feedback.svg)](https://www.npmjs.com/package/@embrs/user-feedback)
+
 基於 Node.js 的 MCP 反饋收集工具，支援 AI 工作彙報和用戶反饋收集。
 
 ## 功能特點
@@ -16,6 +18,8 @@
 - npm 或 yarn 套件管理器
 
 ## 安裝
+
+**📦 npm 套件**: [https://www.npmjs.com/package/@embrs/user-feedback](https://www.npmjs.com/package/@embrs/user-feedback?activeTab=readme)
 
 ```bash
 # 全域安裝
@@ -81,13 +85,20 @@ user-feedback config
   "mcpServers": {
     "user-feedback": {
       "command": "npx",
-      "args": ["-y", "@embrs/user-feedback"]
+      "args": ["-y", "@embrs/user-feedback"],
+      "env": {
+        "MCP_WEB_PORT": "3000",
+        "MCP_DIALOG_TIMEOUT": "60000",
+        "LOG_LEVEL": "warn"
+      }
     }
   }
 }
 ```
 
 5. 重啟 Cursor 使配置生效
+
+**💡 提示**：可以在 `env` 中設定任何環境變數，優先順序高於 `.env` 文件。
 
 ### Claude Desktop
 
@@ -98,7 +109,12 @@ user-feedback config
   "mcpServers": {
     "user-feedback": {
       "command": "npx",
-      "args": ["-y", "@embrs/user-feedback"]
+      "args": ["-y", "@embrs/user-feedback"],
+      "env": {
+        "MCP_WEB_PORT": "3000",
+        "MCP_DIALOG_TIMEOUT": "60000",
+        "LOG_LEVEL": "warn"
+      }
     }
   }
 }
@@ -113,7 +129,12 @@ user-feedback config
   "mcpServers": {
     "user-feedback": {
       "command": "npx",
-      "args": ["-y", "@embrs/user-feedback"]
+      "args": ["-y", "@embrs/user-feedback"],
+      "env": {
+        "MCP_WEB_PORT": "3000",
+        "MCP_DIALOG_TIMEOUT": "60000",
+        "LOG_LEVEL": "warn"
+      }
     }
   }
 }
@@ -121,14 +142,36 @@ user-feedback config
 
 ## 環境變數配置
 
+### 🎯 推薦方式：MCP 客戶端配置
+
+直接在 MCP 客戶端配置中設定環境變數，優先順序最高：
+
+```json
+{
+  "mcpServers": {
+    "user-feedback": {
+      "command": "npx",
+      "args": ["-y", "@embrs/user-feedback"],
+      "env": {
+        "MCP_WEB_PORT": "3000",
+        "MCP_DIALOG_TIMEOUT": "60000",
+        "LOG_LEVEL": "warn"
+      }
+    }
+  }
+}
+```
+
+### 📁 備用方式：.env 文件
+
 複製 `.env.example` 為 `.env` 並根據需要修改：
 
 | 變數 | 說明 | 預設值 |
 |------|------|--------|
 | `MCP_WEB_PORT` | Web 服務器端口 | 3239 |
-| `MCP_DIALOG_TIMEOUT` | 反饋超時時間（秒） | 600 |
+| `MCP_DIALOG_TIMEOUT` | 反饋超時時間（秒） | 60000 |
 | `LOG_LEVEL` | 日誌級別（silent/error/warn/info/debug） | info |
-| `MAX_IMAGE_SIZE_MB` | 最大圖片大小（MB） | 10 |
+| `MCP_MAX_FILE_SIZE` | 最大檔案大小（位元組） | 10485760 (10MB) |
 
 ## MCP 工具 API
 
