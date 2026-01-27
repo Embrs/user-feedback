@@ -62,15 +62,15 @@
 系統 SHALL 提供命令行介面，支援啟動、配置和測試功能。
 
 #### Scenario: 啟動 MCP 服務器
-- **WHEN** 用戶執行 `mcp-feedback-collector start`
+- **WHEN** 用戶執行 `user-feedback start`
 - **THEN** 系統啟動 MCP 服務器和 Web 服務器
 
 #### Scenario: 僅啟動 Web 模式
-- **WHEN** 用戶執行 `mcp-feedback-collector start --web`
+- **WHEN** 用戶執行 `user-feedback start --web`
 - **THEN** 系統僅啟動 Web 服務器（用於測試）
 
 #### Scenario: 測試反饋功能
-- **WHEN** 用戶執行 `mcp-feedback-collector test-feedback`
+- **WHEN** 用戶執行 `user-feedback test-feedback`
 - **THEN** 系統創建測試會話並自動開啟瀏覽器
 
 ### Requirement: 配置管理
