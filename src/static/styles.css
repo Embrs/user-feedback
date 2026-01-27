@@ -31,13 +31,16 @@ body {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  padding: 20px;
+  margin: auto;
+  max-width: 1200px;
 }
 
 /* 面板樣式 */
 .panel {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border);
+  outline: 1px solid var(--border);
 }
 
 .panel-left {
@@ -178,7 +181,7 @@ body {
   color: var(--text-primary);
   font-size: 14px;
   resize: vertical;
-  min-height: 120px;
+  min-height: 220px;
   font-family: inherit;
 }
 
@@ -195,7 +198,7 @@ body {
 .quick-replies {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
   margin-bottom: 16px;
   align-items: center;
   min-height: 40px; /* 確保即使沒有罐頭語也有足夠高度 */
