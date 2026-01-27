@@ -4,6 +4,11 @@
 
 ## 2026-01
 
+### 2026-01-27
+- **[功能]** `src/static/app.js` - 新增全螢幕拖放功能，支援頁面任意位置拖放圖片
+- **[樣式]** `src/static/styles.css` - 新增全螢幕拖放覆蓋層樣式與動畫效果
+- **[重構]** `items/architecture.md` - 更新為 MCP 反饋收集器實際架構，加入全螢幕拖放系統說明
+
 ### 2026-01-23
 - **[重構]** `SKILL.md` - 改為通用模板，移除專案特定內容
 - **[新增]** `.memory/context/BUSINESS_OVERVIEW.md` - 專案業務概覽

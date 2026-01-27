@@ -138,6 +138,9 @@ function initDropZone() {
     handleFiles(e.target.files);
     fileInput.value = '';
   });
+
+  // 全螢幕拖放支援
+  initFullScreenDropZone();
 }
 
 // 處理檔案
@@ -583,3 +586,85 @@ function showToast(message, type = 'info') {
 
 // 頁面載入完成後初始化
 document.addEventListener('DOMContentLoaded', init);
+
+// 初始化全螢幕拖放功能
+function initFullScreenDropZone() {
+  let dragCounter = 0;
+  let fullScreenOverlay = null;
+
+  // 創建全螢幕覆蓋層
+  function createFullScreenOverlay() {
+    if (fullScreenOverlay) return fullScreenOverlay;
+    
+    fullScreenOverlay = document.createElement('div');
+    fullScreenOverlay.id = 'fullscreen-drop-overlay';
+    fullScreenOverlay.className = 'fullscreen-drop-overlay';
+    fullScreenOverlay.innerHTML = `
+      <div class="fullscreen-drop-content">
+        <div class="drop-icon">📁</div>
+        <h2>拖放圖片到此處</h2>
+        <p>或點擊下方區域選擇檔案</p>
+      </div>
+    `;
+    document.body.appendChild(fullScreenOverlay);
+    return fullScreenOverlay;
+  }
+
+  // 顯示全螢幕覆蓋層
+  function showFullScreenOverlay() {
+    const overlay = createFullScreenOverlay();
+    overlay.classList.add('show');
+  }
+
+  // 隱藏全螢幕覆蓋層
+  function hideFullScreenOverlay() {
+    if (fullScreenOverlay) {
+      fullScreenOverlay.classList.remove('show');
+    }
+  }
+
+  // 全域拖放事件監聽
+  document.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    dragCounter++;
+    
+    if (dragCounter === 1) {
+      showFullScreenOverlay();
+    }
+  });
+
+  document.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dragCounter--;
+    
+    if (dragCounter === 0) {
+      hideFullScreenOverlay();
+    }
+  });
+
+  document.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  document.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dragCounter = 0;
+    hideFullScreenOverlay();
+    
+    // 處理拖放的檔案
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFiles(files);
+    }
+  });
+
+  // 覆蓋層點擊事件 - 觸發檔案選擇
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#fullscreen-drop-overlay')) {
+      elements.fileInput.click();
+    }
+  });
+}
+
+// 將函數暴露到全局範圍
+window.initFullScreenDropZone = initFullScreenDropZone;
