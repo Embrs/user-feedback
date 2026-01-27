@@ -12,6 +12,9 @@
 - **[修改]** `openspec/specs/mcp-core/spec.md` - 更新命令名稱從 mcp-feedback-collector 改為 user-feedback
 - **[修改]** `.windsurf/skills/user-feedback/SKILL.md` - 實作動態 MCP 工具檢測機制，支援順序變動
 - **[修改]** `.windsurf/workflows/*` - 更新工作流程以使用動態工具檢測
+- **[新增]** `.memory/context/BUSINESS_OVERVIEW.md` - 創建專案業務概覽文件
+- **[更新]** `items/modules.md` - 完善 MCP 反饋收集器功能模組清單
+- **[格式]** `items/architecture.md` - 調整目錄結構格式對齊
 
 ### 2026-01-23
 - **[重構]** `SKILL.md` - 改為通用模板，移除專案特定內容

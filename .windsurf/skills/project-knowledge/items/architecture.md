@@ -5,7 +5,7 @@
 ## 整體結構
 
 ```
-{專案名稱}/
+@embrs/user-feedback/
 ├── src/                    # 原始碼
 │   ├── cli.ts             # CLI 入口點
 │   ├── index.ts           # 主要模組
