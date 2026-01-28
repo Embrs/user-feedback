@@ -4,22 +4,6 @@
 
 ## 2026-01
 
-### 2026-01-27
-- **[功能]** `src/static/app.js` - 新增全螢幕拖放功能，支援頁面任意位置拖放圖片
-- **[樣式]** `src/static/styles.css` - 新增全螢幕拖放覆蓋層樣式與動畫效果
-- **[重構]** `items/architecture.md` - 更新為 MCP 反饋收集器實際架構，加入全螢幕拖放系統說明
-- **[修改]** `package.json` + `package-lock.json` - 統一專案名稱為 @embrs/user-feedback
-- **[修改]** `openspec/specs/mcp-core/spec.md` - 更新命令名稱從 mcp-feedback-collector 改為 user-feedback
-- **[修改]** `.windsurf/skills/user-feedback/SKILL.md` - 實作動態 MCP 工具檢測機制，支援順序變動
-- **[修改]** `.windsurf/workflows/*` - 更新工作流程以使用動態工具檢測
-- **[新增]** `.memory/context/BUSINESS_OVERVIEW.md` - 創建專案業務概覽文件
-- **[更新]** `items/modules.md` - 完善 MCP 反饋收集器功能模組清單
-- **[格式]** `items/architecture.md` - 調整目錄結構格式對齊
-- **[修改]** `src/config/index.ts` - 調整預設超時時間從 600 秒改為 60000 秒
-- **[修改]** `.env.example` + `.env` - 更新環境變數預設值與驗證範圍
-- **[更新]** `README.md` - 完善環境變數文檔與 MCP 配置範例
-- **[樣式]** `src/static/styles.css` - 調整 UI 樣式細節
-
 ### 2026-01-23
 - **[重構]** `SKILL.md` - 改為通用模板，移除專案特定內容
 - **[新增]** `.memory/context/BUSINESS_OVERVIEW.md` - 專案業務概覽
