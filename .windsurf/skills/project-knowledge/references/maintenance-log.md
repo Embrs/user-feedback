@@ -4,6 +4,13 @@
 
 ## 2026-01
 
+### 2026-01-28
+- **[更新]** `items/modules.md` - 更新為 MCP 專案實際模組結構
+- **[更新]** `items/architecture.md` - 調整為 user-feedback 專案架構
+- **[新增]** `PROCESS_CLEANUP_FIX.md` - 進程清理修復說明文檔
+- **[新增]** `scripts/cleanup-processes.js` - 進程清理腳本
+- **[修復]** `src/server/mcp-server.ts` - 添加優雅關閉機制
+
 ### 2026-01-23
 - **[重構]** `SKILL.md` - 改為通用模板，移除專案特定內容
 - **[新增]** `.memory/context/BUSINESS_OVERVIEW.md` - 專案業務概覽
@@ -30,3 +37,4 @@
 - `[刪除]` - 刪除文件
 - `[歸檔]` - 移至歸檔
 - `[重構]` - 結構調整
+- `[修復]` - Bug 修復

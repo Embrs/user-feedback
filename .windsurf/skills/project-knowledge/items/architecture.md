@@ -5,57 +5,49 @@
 ## 整體結構
 
 ```
-{專案名稱}/
-├── app/                    # 前端應用
-│   ├── pages/              # 頁面路由
-│   ├── components/         # Vue 組件
-│   ├── composables/        # 組合式函數
-│   ├── stores/             # Pinia 狀態管理
+user-feedback/
+├── src/                     # 源代碼
+│   ├── server/             # 服務器實現
+│   │   ├── mcp-server.ts   # MCP 服務器
+│   │   ├── web-server.ts   # Web 服務器
+│   │   └── routes/         # API 路由
+│   ├── config/             # 配置管理
+│   ├── types/              # TypeScript 類型
 │   ├── utils/              # 工具函數
-│   ├── layouts/            # 佈局模板
-│   └── protocol/           # API 接口定義
+│   └── cli.ts              # CLI 入口
 │
-├── server/                 # 後端 API
-│   ├── routes/             # API 端點
-│   ├── schemas/            # 驗證 Schema
-│   ├── utils/              # 工具函數
-│   ├── middleware/         # 中間件
-│   └── plugins/            # 插件
+├── scripts/                # 腳本工具
+│   └── cleanup-processes.js # 進程清理腳本
 │
-├── prisma/                 # 資料庫
-│   ├── schema.prisma       # 資料模型
-│   ├── migrations/         # 遷移檔案
-│   └── seed.ts             # 種子資料
+├── dist/                   # 編譯輸出
+├── node_modules/           # 依賴包
 │
-├── shared/                 # 共用類型
-│   └── types/              # TypeScript 類型定義
-│
-├── .windsurf/                 # AI Agent 配置
+├── .windsurf/              # AI Agent 配置
 │   ├── skills/             # Agent Skills
 │   └── workflows/          # 工作流程
 │
-└── .memory/                # AI 記憶庫
-    ├── archive/            # 歷史歸檔
-    └── context/            # 業務規則
+├── .memory/                # AI 記憶庫
+│   ├── archive/            # 歷史歸檔
+│   └── context/            # 業務規則
+│
+├── openspec/               # OpenSpec 規範
+├── package.json           # 專案配置
+└── README.md              # 專案說明
 ```
 
 ## 分層設計
 
 ```
 ┌─────────────────────────────────────┐
-│             前端 (app/)             │
-│  Pages → Components → Composables  │
+│           CLI 層 (cli.ts)           │
 │              ↓                      │
-│         protocol/$api               │
-└─────────────────────────────────────┘
-              ↓ HTTP
 ┌─────────────────────────────────────┐
-│           後端 (server/)            │
-│  Routes → Utils → Prisma Client    │
-└─────────────────────────────────────┘
-              ↓ SQL
+│         服務層 (server/)           │
+│  MCP Server ←→ Web Server         │
+│              ↓                      │
 ┌─────────────────────────────────────┐
-│           資料庫 (Database)         │
+│         工具層 (utils/)            │
+│  Logger → Config → Types           │
 └─────────────────────────────────────┘
 ```
 
@@ -63,14 +55,23 @@
 
 | 檔案 | 用途 |
 |------|------|
-| `nuxt.config.ts` | Nuxt 配置 |
-| `prisma/schema.prisma` | 資料庫模型 |
-| `Dockerfile` | Docker 構建 |
-| `.env` | 環境變數（本地） |
+| `package.json` | 專案配置和依賴 |
+| `tsconfig.json` | TypeScript 配置 |
+| `.env.example` | 環境變數範本 |
+| `src/cli.ts` | CLI 入口點 |
+| `scripts/cleanup-processes.js` | 進程清理工具 |
+
+## 進程管理
+
+專案採用優雅關閉機制：
+
+- **信號監聽**：SIGINT、SIGTERM、stdin 關閉
+- **清理腳本**：自動清理殘留進程
+- **日誌記錄**：完整的關閉流程記錄
 
 ## 同步檢查
 
-執行 `scripts/sync-check.sh` 可查看實際數量統計：
+定期檢查目錄結構是否與文檔同步：
 ```bash
-bash .windsurf/skills/project-knowledge/scripts/sync-check.sh
+find src -name "*.ts" | wc -l  # 統計 TypeScript 檔案
 ```

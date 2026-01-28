@@ -178,6 +178,44 @@ export class MCPServer {
   }
 
   /**
+   * 設置優雅關閉處理
+   */
+  private setupGracefulShutdown(): void {
+    let isShuttingDown = false;
+
+    const gracefulShutdown = async (signal: string): Promise<void> => {
+      if (isShuttingDown) return;
+
+      isShuttingDown = true;
+      logger.info(`收到 ${signal} 信號，開始優雅關閉 MCP 服務器...`);
+
+      try {
+        await this.stop();
+        logger.info('MCP 服務器優雅關閉完成');
+        process.exit(0);
+      } catch (error) {
+        logger.error('MCP 服務器優雅關閉失敗:', error);
+        process.exit(1);
+      }
+    };
+
+    // 監聽進程終止信號
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    
+    // 監聽標準輸入關閉（當 IDE 關閉時）
+    process.stdin.on('close', () => {
+      logger.info('標準輸入已關閉，觸發優雅關閉...');
+      gracefulShutdown('stdin_close');
+    });
+
+    // 監聽進程退出事件
+    process.on('exit', (code) => {
+      logger.info(`進程退出，代碼: ${code}`);
+    });
+  }
+
+  /**
    * 啟動 MCP 服務器
    */
   async start(): Promise<void> {
@@ -188,6 +226,9 @@ export class MCPServer {
 
     try {
       logger.info('正在啟動 MCP 服務器...');
+
+      // 設置優雅關閉處理
+      this.setupGracefulShutdown();
 
       // 連接 MCP 傳輸
       const transport = new StdioServerTransport();
@@ -225,6 +266,9 @@ export class MCPServer {
   async startWebOnly(): Promise<void> {
     try {
       logger.info('正在啟動 Web 模式...');
+      
+      // 設置優雅關閉處理
+      this.setupGracefulShutdown();
       
       await this.webServer.start();
       

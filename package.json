@@ -1,6 +1,6 @@
 {
   "name": "@embrs/user-feedback",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "基於 Node.js 的 MCP 反饋收集器 - 支援 AI 工作彙報和用戶反饋收集",
   "main": "dist/index.js",
   "bin": {
@@ -40,6 +40,7 @@
     "lint": "eslint src/ --ext .ts",
     "lint:fix": "eslint src/ --ext .ts --fix",
     "clean": "node -e \"const fs=require('fs'); if(fs.existsSync('dist')){fs.rmSync('dist', {recursive: true, force: true})}\"",
+    "cleanup": "node scripts/cleanup-processes.js",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
