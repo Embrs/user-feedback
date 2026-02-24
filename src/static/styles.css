@@ -127,7 +127,7 @@ body {
   overflow: hidden;
   cursor: grab;
   border: 2px solid transparent;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .preview-item:hover {
@@ -135,7 +135,34 @@ body {
 }
 
 .preview-item.dragging {
-  opacity: 0.5;
+  opacity: 0.3;
+  transform: scale(0.9);
+  cursor: grabbing;
+}
+
+.preview-item.drag-over-item {
+  border-color: var(--accent);
+  transform: scale(0.92);
+  box-shadow: 0 0 12px rgba(14, 99, 156, 0.4);
+}
+
+.preview-item.just-placed {
+  animation: pop-in 0.3s ease-out;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.5;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .preview-item img {

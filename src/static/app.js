@@ -166,13 +166,16 @@ function handleFiles(files) {
   });
 }
 
-// 渲染圖片預覽
-function renderImagePreviews() {
+// 渲染圖片預覽（animateIndex: 剛放置的項目索引，用於播放動畫）
+function renderImagePreviews(animateIndex) {
   elements.imagePreview.innerHTML = '';
 
   state.images.forEach((img, index) => {
     const item = document.createElement('div');
     item.className = 'preview-item';
+    if (index === animateIndex) {
+      item.classList.add('just-placed');
+    }
     item.draggable = true;
     item.dataset.index = index;
 
@@ -210,24 +213,47 @@ function removeImage(index) {
 let draggedIndex = null;
 let draggedItem = null;
 let isInternalDrag = false;
+let dragOverIndex = null;
 
 function handleDragStart(e) {
   const previewItem = e.target.closest('.preview-item');
   draggedIndex = parseInt(previewItem.dataset.index);
   draggedItem = state.images[draggedIndex];
   isInternalDrag = true;
-  previewItem.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  // 延遲添加 class，確保瀏覽器先截取拖曳影像
+  setTimeout(() => {
+    previewItem.classList.add('dragging');
+  }, 0);
 }
 
 function handleDragEnd(e) {
-  e.target.closest('.preview-item').classList.remove('dragging');
+  const previewItem = e.target.closest('.preview-item');
+  if (previewItem) previewItem.classList.remove('dragging');
+  // 清除所有拖曳指示器
+  document.querySelectorAll('.preview-item.drag-over-item').forEach(el => {
+    el.classList.remove('drag-over-item');
+  });
   draggedIndex = null;
   draggedItem = null;
   isInternalDrag = false;
+  dragOverIndex = null;
 }
 
 function handleDragOver(e) {
   e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  // 顯示放置目標指示器
+  const previewItem = e.target.closest('.preview-item');
+  if (!previewItem || draggedIndex === null) return;
+  const overIndex = parseInt(previewItem.dataset.index);
+  if (overIndex !== draggedIndex && overIndex !== dragOverIndex) {
+    document.querySelectorAll('.preview-item.drag-over-item').forEach(el => {
+      el.classList.remove('drag-over-item');
+    });
+    previewItem.classList.add('drag-over-item');
+    dragOverIndex = overIndex;
+  }
 }
 
 function handleDrop(e) {
@@ -239,21 +265,11 @@ function handleDrop(e) {
   const dropIndex = parseInt(dropTarget.dataset.index);
 
   if (draggedIndex !== dropIndex && draggedItem) {
-    // 創建新的圖片陣列
-    const newImages = [...state.images];
-    
-    // 移除拖動的項目
-    newImages.splice(draggedIndex, 1);
-    
-    // 重新計算插入位置（因為移除後索引可能改變）
-    const newDropIndex = draggedIndex < dropIndex ? dropIndex - 1 : dropIndex;
-    
-    // 插入到新位置
-    newImages.splice(newDropIndex, 0, draggedItem);
-    
-    // 更新狀態
-    state.images = newImages;
-    renderImagePreviews();
+    // 直接移除再插入，不需額外調整索引
+    // splice 後 dropIndex 即為目標元素的原始位置
+    state.images.splice(draggedIndex, 1);
+    state.images.splice(dropIndex, 0, draggedItem);
+    renderImagePreviews(dropIndex);
   }
 }
 
