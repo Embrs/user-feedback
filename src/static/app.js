@@ -209,11 +209,13 @@ function removeImage(index) {
 // 拖動排序處理
 let draggedIndex = null;
 let draggedItem = null;
+let isInternalDrag = false;
 
 function handleDragStart(e) {
   const previewItem = e.target.closest('.preview-item');
   draggedIndex = parseInt(previewItem.dataset.index);
   draggedItem = state.images[draggedIndex];
+  isInternalDrag = true;
   previewItem.classList.add('dragging');
 }
 
@@ -221,6 +223,7 @@ function handleDragEnd(e) {
   e.target.closest('.preview-item').classList.remove('dragging');
   draggedIndex = null;
   draggedItem = null;
+  isInternalDrag = false;
 }
 
 function handleDragOver(e) {
@@ -623,9 +626,10 @@ function initFullScreenDropZone() {
     }
   }
 
-  // 全域拖放事件監聽
+  // 全域拖放事件監聽（排除內部圖片排序拖曳）
   document.addEventListener('dragenter', (e) => {
     e.preventDefault();
+    if (isInternalDrag) return;
     dragCounter++;
     
     if (dragCounter === 1) {
@@ -635,6 +639,7 @@ function initFullScreenDropZone() {
 
   document.addEventListener('dragleave', (e) => {
     e.preventDefault();
+    if (isInternalDrag) return;
     dragCounter--;
     
     if (dragCounter === 0) {
@@ -648,6 +653,7 @@ function initFullScreenDropZone() {
 
   document.addEventListener('drop', (e) => {
     e.preventDefault();
+    if (isInternalDrag) return;
     dragCounter = 0;
     hideFullScreenOverlay();
     
